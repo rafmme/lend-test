@@ -8,7 +8,7 @@ import {
  */
 export default {
   development: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: DB_HOST || '127.0.0.1',
       port: DB_PORT || 8889,
@@ -26,7 +26,7 @@ export default {
   },
 
   test: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: DB_HOST || 'localhost',
       port: DB_PORT || 3306,
@@ -44,7 +44,7 @@ export default {
   },
 
   production: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: DATABASE_URL,
     pool: {
       min: 2,

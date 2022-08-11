@@ -6,7 +6,7 @@ import {
 
 
 let config: Knex.Config = {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: DB_HOST,
       port: Number.parseInt(DB_PORT!, 10),
@@ -25,7 +25,7 @@ let config: Knex.Config = {
 
 if (NODE_ENV?.toLowerCase() === 'production') {
   config = {
-    client: 'mysql',
+    client: 'mysql2',
     connection: DATABASE_URL,
     pool: {
       min: 2,
@@ -39,7 +39,7 @@ if (NODE_ENV?.toLowerCase() === 'production') {
 
 if (NODE_ENV?.toLowerCase() === 'test') {
   config = {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: DB_HOST,
       port: Number.parseInt(DB_PORT!, 10),
