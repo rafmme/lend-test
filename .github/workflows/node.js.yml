@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DB_DATABASE: lend_db
+      NODE_ENV: test
+      TEST_DATABASE: test_db
       DB_USER: root
       DB_PASSWORD: "root"
       DB_HOST: localhost
@@ -14,10 +15,11 @@ jobs:
     steps:
       - run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+          mysql -e 'CREATE DATABASE ${{ env.TEST_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: "14.x"
       - run: npm install
+      - run: npm run migrate
       - run: npm test
