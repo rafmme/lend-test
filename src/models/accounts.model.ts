@@ -1,7 +1,7 @@
 import { knexInstance } from "../config";
 
-interface IAccount {
-  id: number;
+export interface IAccount {
+  id?: number;
   accountName: string;
   accountOwner: string;
   accountBalance: number;
