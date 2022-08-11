@@ -4,9 +4,10 @@
   "description": "Job Test",
   "main": "src/server.ts",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --passWithNoTests",
     "clean": "rm -rf dist",
     "migrate": "knex migrate:latest --knexfile src/db/knexfile.ts",
+    "undo:migrate": "knex migrate:down --knexfile src/db/knexfile.ts",
     "dev": "nodemon src/server.ts",
     "build": "npx tsc",
     "start": "node dist/server.js"
