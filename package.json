@@ -2,9 +2,13 @@
   "name": "lendsqr_test",
   "version": "1.0.0",
   "description": "Job Test",
-  "main": "src/app.ts",
+  "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "clean": "rm -rf dist",
+    "dev": "nodemon src/server.ts",
+    "build": "npx tsc",
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",

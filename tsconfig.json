@@ -1,4 +1,9 @@
 {
+  "exclude": ["__tests__", "jest.config.js", "./dist", "./coverage"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
