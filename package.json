@@ -4,10 +4,10 @@
   "description": "Job Test",
   "main": "src/server.ts",
   "scripts": {
-    "test": "jest --coverage --passWithNoTests",
+    "test": "jest --coverage --runInBand --force-exit",
     "clean": "rm -rf dist",
     "migrate": "knex migrate:latest --knexfile src/db/knexfile.ts",
-    "undo:migrate": "knex migrate:down --knexfile src/db/knexfile.ts",
+    "undo:migrate": "knex migrate:rollback --knexfile src/db/knexfile.ts",
     "dev": "nodemon src/server.ts",
     "build": "npx tsc",
     "start": "node dist/server.js"
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/rafmme/lend-test#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "knex": "^2.2.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/hapi__joi": "^17.1.8",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.7.1",
     "@types/request": "^2.48.8",
