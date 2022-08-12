@@ -10,14 +10,14 @@ const {
   DB_HOST,
   DB_PORT,
   PORT: APP_PORT,
-  DATABASE_URL,
+  CLEARDB_DATABASE_URL,
   NODE_ENV,
 } = process.env;
   
 const PORT: Number = Number.parseInt(APP_PORT!, 10) || 5050;
 
 export {
-  DATABASE_URL,
+  CLEARDB_DATABASE_URL,
   PORT,
   DB_DATABASE,
   TEST_DATABASE,

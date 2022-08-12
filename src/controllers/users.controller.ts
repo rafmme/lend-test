@@ -12,11 +12,12 @@ class UserController extends BaseController {
 
     try {
       const {
-        email,
+        email: accountEmail,
         fullName,
         securityPassKey,
       } = req.body;
 
+      const email = accountEmail?.toLowerCase();
       await validate(registerSchema, req.body);
   
       const userExist = await knexInstance.raw(

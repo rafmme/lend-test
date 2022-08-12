@@ -1,6 +1,6 @@
 import {
   DB_HOST, DB_USER, DB_PASSWORD, DB_PORT,
-  DB_DATABASE, TEST_DATABASE, DATABASE_URL
+  DB_DATABASE, TEST_DATABASE, CLEARDB_DATABASE_URL
 } from '../config';
 
 /**
@@ -45,7 +45,7 @@ export default {
 
   production: {
     client: 'mysql2',
-    connection: DATABASE_URL,
+    connection: CLEARDB_DATABASE_URL,
     pool: {
       min: 2,
       max: 10

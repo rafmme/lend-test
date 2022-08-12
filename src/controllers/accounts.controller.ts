@@ -18,7 +18,7 @@ class AccountController {
       const fundAmount = Number.parseFloat(amount);
   
       const accountExist = await knexInstance.raw(
-        `SELECT * FROM accounts WHERE accountOwner = '${email}' AND securityPassKey = '${securityPassKey}'`
+        `SELECT * FROM accounts WHERE accountOwner = '${email.toLowerCase()}' AND securityPassKey = '${securityPassKey}'`
       );
 
       if (accountExist[0].length === 0) {
@@ -28,7 +28,7 @@ class AccountController {
       };
 
       const account = await Account
-        .where('accountOwner', email).update({
+        .where('accountOwner', email.toLowerCase()).update({
           accountBalance: accountExist[0][0].accountBalance + fundAmount,
       });
   
@@ -59,7 +59,7 @@ class AccountController {
       const fundAmount = Number.parseFloat(amount);
   
       const accountExist = await knexInstance.raw(
-        `SELECT * FROM accounts WHERE accountOwner = '${email}' AND securityPassKey = '${securityPassKey}'`
+        `SELECT * FROM accounts WHERE accountOwner = '${email.toLowerCase()}' AND securityPassKey = '${securityPassKey}'`
       );
 
       if (accountExist[0].length === 0) {
@@ -75,7 +75,7 @@ class AccountController {
         );
       };
 
-      const account = await Account.where('accountOwner', email).update({
+      const account = await Account.where('accountOwner', email.toLowerCase()).update({
         accountBalance: accountExist[0][0].accountBalance - fundAmount,
       });
   
@@ -107,11 +107,11 @@ class AccountController {
       const fundAmount = Number.parseFloat(amount);
   
       const senderAccountExist = await knexInstance.raw(
-        `SELECT * FROM accounts WHERE accountOwner = '${sender}' AND securityPassKey = '${securityPassKey}'`
+        `SELECT * FROM accounts WHERE accountOwner = '${sender.toLowerCase()}' AND securityPassKey = '${securityPassKey}'`
       );
 
       const receipientAccountExist = await knexInstance.raw(
-        `SELECT * FROM accounts WHERE accountOwner = '${receipient}'`
+        `SELECT * FROM accounts WHERE accountOwner = '${receipient.toLowerCase()}'`
       );
 
       if (senderAccountExist[0].length === 0) {
@@ -126,7 +126,7 @@ class AccountController {
         );
       };
 
-      if (sender === receipient) {
+      if (sender.toLowerCase() === receipient.toLowerCase()) {
         throw new ConflictException(
           `Sorry, You can't transfer funds to the same account!!!`
         );
@@ -140,17 +140,16 @@ class AccountController {
       };
 
       const senderAccount = await knexInstance.raw(
-        `UPDATE accounts SET accountBalance = '${senderAccountExist[0][0].accountBalance - fundAmount}' WHERE accounts.accountOwner = '${sender}'`
+        `UPDATE accounts SET accountBalance = '${senderAccountExist[0][0].accountBalance - fundAmount}' WHERE accounts.accountOwner = '${sender.toLowerCase()}'`
       );
 
       const receipientAccount = await knexInstance.raw(
-        `UPDATE accounts SET accountBalance = '${receipientAccountExist[0][0].accountBalance + fundAmount}' WHERE accounts.accountOwner = '${receipient}'`
+        `UPDATE accounts SET accountBalance = '${receipientAccountExist[0][0].accountBalance + fundAmount}' WHERE accounts.accountOwner = '${receipient.toLowerCase()}'`
       );
   
       res.status(200).json({
         statusCode: 200,
-        message: `Transfer was successful! Your account with ID '${sender}' has been debited with ${amount}\n
-        and account ${receipient} was credited.
+        message: `Transfer was successful! Your account with ID '${sender}' has been debited with ${amount} and account ${receipient} was credited.
         `,
         account: {
           accountId: sender,

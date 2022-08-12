@@ -1,6 +1,6 @@
 import { Knex, knex } from 'knex';
 import {
-  DATABASE_URL, DB_DATABASE, DB_HOST, DB_PORT,
+  CLEARDB_DATABASE_URL, DB_DATABASE, DB_HOST, DB_PORT,
   DB_PASSWORD, DB_USER, NODE_ENV, TEST_DATABASE
 } from './constants';
 
@@ -26,7 +26,7 @@ let config: Knex.Config = {
 if (NODE_ENV?.toLowerCase() === 'production') {
   config = {
     client: 'mysql2',
-    connection: DATABASE_URL,
+    connection: CLEARDB_DATABASE_URL,
     pool: {
       min: 2,
       max: 10
