@@ -17,9 +17,20 @@ const securityPassKey = Joi.string()
 
 const confirmSecurityPassKey = Joi.valid(Joi.ref('securityPassKey')).required();
 
-export const registerSchema = Joi.object ({
+const amount = Joi.number().min(1).required();
+
+export const registerSchema = Joi.object({
   email, fullName, securityPassKey,
   confirmSecurityPassKey,
 });
+
+export const fundAccountSchema = Joi.object({
+  email, securityPassKey,
+  amount,
+});
+
+
+
+
 
 

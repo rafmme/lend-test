@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestException } from "../exceptions";
 import { Account } from "../models";
-import { IUser, User } from "../models/users.model";
-import { registerSchema } from "../utils/validation/auth";
+import { User } from "../models/users.model";
+import { registerSchema } from "../utils/validation/data.schema";
 import { validate } from "../utils/validator";
 import { BaseController } from "./base.controller";
 
@@ -56,21 +56,12 @@ class UserController extends BaseController {
       next(error);
     }
   };
-
-  public read(req: Request, res: Response): void {
-    throw new Error("Method not implemented.");
-  };
-
-  public update(req: Request, res: Response): void {
-    throw new Error("Method not implemented.");
-  }
-
-  public delete(req: Request, res: Response): void {
-    throw new Error("Method not implemented.");
-  }
-  
 };
 
 
 export const userController = new UserController();
+
+
+
+
 
