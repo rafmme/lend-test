@@ -2,20 +2,31 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Fund Account', () => {
+  beforeAll(async() => {
+    await request(app).post('/api/accounts/new')
+      .send({
+        fullName: 'Test Tester',
+        email: 'tester@test.com',
+        securityPassKey: 'Passw1rd',
+        confirmSecurityPassKey: 'Passw1rd',
+      });
+  });
+
   test('(PATCH) /api/accounts/fund - returns 200 status on successful funding of an account',
     async () => {
       const res = await request(app).patch('/api/accounts/fund')
         .send({
-          email: 'test@test.com',
+          email: 'tester@test.com',
           amount: 500,
-          securityPassKey: 'Passw0rd',
+          securityPassKey: 'Passw1rd',
         });
 
       expect(res.status).toEqual(200);
       expect(res.body.statusCode).toEqual(200);
-      expect(res.body.message).toEqual(`Your account with ID 'test@test.com' has been funded with 500`);
+      expect(res.body.message).toEqual(`Your account with ID 'tester@test.com' has been funded with 500`);
       expect(res.body.account).toBeDefined();
       expect(res.body.account.previousBalance).toBeLessThan(res.body.account.newBalance);
+      expect(res.body.account.newBalance).toEqual(500);
     },
   );
 

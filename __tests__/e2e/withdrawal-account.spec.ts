@@ -11,7 +11,7 @@ describe('Withdraw from Account', () => {
         confirmSecurityPassKey: 'Kassw0rd',
       });
 
-      await request(app).patch('/api/accounts/fund')
+    await request(app).patch('/api/accounts/fund')
       .send({
         email: 'timmy@mymail.com',
         amount: 8000,

@@ -29,6 +29,11 @@ export const fundAccountSchema = Joi.object({
   amount,
 });
 
+export const transferFundSchema = Joi.object({
+  sender: email, receipient: email,
+  securityPassKey, amount,
+});
+
 
 
 
