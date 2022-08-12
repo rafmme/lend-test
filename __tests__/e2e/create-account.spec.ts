@@ -1,10 +1,10 @@
 import request from 'supertest';
 import app from '../../src/app';
 
-describe('Create User', () => {
-  test('(POST) /api/auth/signup - returns 201 status on successful signup',
+describe('Create Account', () => {
+  test('(POST) /api/accounts/new - returns 201 status on creation of an account',
     async () => {
-      const res = await request(app).post('/api/auth/signup')
+      const res = await request(app).post('/api/accounts/new')
         .send({
           fullName: 'test',
           email: 'test@test.com',
@@ -27,9 +27,9 @@ describe('Create User', () => {
     },
   );
 
-  test('(POST) /api/auth/signup - returns 400 with invalid email',
+  test('(POST) /api/accounts/new - returns 400 with invalid email',
     async () => {
-      const res = await request(app).post('/api/auth/signup')
+      const res = await request(app).post('/api/accounts/new')
         .send({
           fullName: 'test',
           email: 'testescom',
@@ -45,9 +45,9 @@ describe('Create User', () => {
   );
 
 
-  test('(POST) /api/auth/signup - returns 400 with invalid password',
+  test('(POST) /api/accounts/new - returns 400 with invalid password',
     async () => {
-      const res = await request(app).post('/api/auth/signup')
+      const res = await request(app).post('/api/accounts/new')
         .send({
           fullName: 'test',
           email: 'test@esmail.com',
@@ -72,9 +72,9 @@ describe('Create User', () => {
   );
 
 
-  test('(POST) /api/auth/signup - returns 400 with no email and password',
+  test('(POST) /api/accounts/new - returns 400 with no email and password',
     async () => {
-      const res = await request(app).post('/api/auth/signup')
+      const res = await request(app).post('/api/accounts/new')
         .send({});
 
       expect(res.status).toEqual(400);
@@ -96,9 +96,9 @@ describe('Create User', () => {
   );
 
 
-  test('(POST) /api/auth/signup - disallow creating account with duplicate email',
+  test('(POST) /api/accounts/new - disallow creating account with duplicate email',
     async () => {
-      const res = await request(app).post('/api/auth/signup')
+      const res = await request(app).post('/api/accounts/new')
         .send({
           fullName: 'test',
           email: 'test@test.com',
@@ -106,7 +106,7 @@ describe('Create User', () => {
           confirmSecurityPassKey: 'Passw0rd'
         });
 
-      expect(res.status).toEqual(500);
+      expect(res.body.errors).toBeDefined();
     },
   );
 });

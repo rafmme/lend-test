@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestException } from "../exceptions";
+import { Account } from "../models";
 import { IUser, User } from "../models/users.model";
 import { registerSchema } from "../utils/validation/auth";
 import { validate } from "../utils/validator";
@@ -29,6 +30,13 @@ class UserController extends BaseController {
         email,
         securityPassKey,
         fullName,
+      });
+
+      const account = await Account.insert({
+        accountOwner: email,
+        accountBalance: 0.0,
+        accountName: fullName,
+        securityPassKey,
       });
 
       if (user.length < 1) {
