@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { knexInstance } from "../config";
 import { BadRequestException } from "../exceptions";
 import { Account } from "../models";
 import { User } from "../models/users.model";
@@ -18,9 +19,11 @@ class UserController extends BaseController {
 
       await validate(registerSchema, req.body);
   
-      const userExist = await User.where('email', email);
-  
-      if (userExist.length >= 1) {
+      const userExist = await knexInstance.raw(
+        `SELECT * FROM users WHERE email = '${email}' AND securityPassKey = '${securityPassKey}'`
+      );
+
+      if (userExist[0].length >= 1) {
         throw new BadRequestException(
           `User with email address '${email}' already exist on the app.`
         );
@@ -38,10 +41,6 @@ class UserController extends BaseController {
         accountName: fullName,
         securityPassKey,
       });
-
-      if (user.length < 1) {
-        throw new BadRequestException('Unable to create a new user account');
-      }
   
       res.status(201).json({
         statusCode: 201,
@@ -50,6 +49,11 @@ class UserController extends BaseController {
           email,
           fullName,
           securityPassKey,
+        },
+        account: {
+          accountId: email,
+          securityPassKey,
+          accountBalance: 0.0,
         },
       });
     } catch (error) {

@@ -16,13 +16,19 @@ describe('Create Account', () => {
       expect(res.body.statusCode).toEqual(201);
       expect(res.body.user).toBeDefined();
       expect(res.body).toEqual({
-        message: "New Account created for user 'test (test@test.com)'\nPlease keep your 'securityPassKey' safe.",
         statusCode: 201,
+        message: "New Account created for user 'test (test@test.com)'\n" +
+          "Please keep your 'securityPassKey' safe.",
         user: {
           email: 'test@test.com',
           fullName: 'test',
-          securityPassKey: 'Passw0rd',
+          securityPassKey: 'Passw0rd'
         },
+        account: {
+          accountId: 'test@test.com',
+          securityPassKey: 'Passw0rd',
+          accountBalance: 0
+        }
       });
     },
   );
