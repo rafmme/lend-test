@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD="root"
+      - MYSQL_DATABASE="lend_db"
+    ports:
+      - 8889:3307
+    volumes:
+      - db:/var/lib/mysql
+  api:
+    depends_on:
+      - mysqldb
+    build: .
+    ports:
+      - '5000:5000'
+    
+volumes:
+  db:

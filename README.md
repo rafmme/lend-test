@@ -53,6 +53,7 @@ A Backend RESTFUL API that satisfy the following requirements:
 * MySQL
 * GitHub Actions
 * Postman
+* Docker [Docker Compose]
 
 
   
@@ -186,6 +187,7 @@ Required fields: `receipient`, `sender`, `securityPassKey`, `amount`
 4. Run this command ```npm start``` or ```npm run dev``` to start up the application.
 
 5. To run the written tests for the app, run command ```npm test```
+6. To run app using Docker, Docker Compose, ensure you have Docker installed on your machine and run command ```docker-compose up```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
